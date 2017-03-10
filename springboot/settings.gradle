@@ -1,0 +1,11 @@
+rootProject.name = 'demo'
+include 'admin-dashboard'
+
+include 'calc'
+include 'lookup'
+include 'config'
+include 'swagger'
+
+rootProject.children.each{
+  it.name="${rootProject.name}-${it.name}"
+}

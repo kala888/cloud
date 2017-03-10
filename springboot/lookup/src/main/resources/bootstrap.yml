@@ -1,0 +1,12 @@
+# server.port: 4200
+# management.context-path: /mgmt
+
+spring:
+  application:
+    name: lookup
+  cloud:
+    config:
+      uri: http://config:7100
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: ${CONFIG_SERVICE_USER}

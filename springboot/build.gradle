@@ -1,0 +1,71 @@
+apply from: "$rootDir/build-config.gradle"
+
+buildscript {
+    repositories {
+      maven { url "https://repo.spring.io/libs-release" }
+      mavenLocal()
+      jcenter()
+    }
+    dependencies {
+      classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url "https://repo.spring.io/libs-release" }
+    }
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+
+subprojects{
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  apply plugin: 'org.springframework.boot'
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
+  def jreContainer = 'org.eclipse.jdt.launching.JRE_CONTAINER'
+  eclipse {
+      classpath {
+          containers jreContainer
+          file{
+              whenMerged { classpath ->
+                def removedItem= classpath.entries.find{
+                  it.path.indexOf('StandardVMType')>0
+                }
+                classpath.entries.remove(removedItem)
+              }
+         }
+      }
+
+  }
+
+  task sourcesJar(type: Jar) {
+      baseName = project['artifactId']
+      version = project['version']
+      classifier = 'sources'
+      from sourceSets.main.allSource
+  }
+  artifacts {
+      archives sourcesJar
+  }
+
+  dependencyManagement {
+    imports {
+      mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR2'
+    }
+  }
+
+  task dev << {
+      bootRun.systemProperty 'spring.profiles.active', 'dev'
+  }
+
+  // bootRun {
+  //     jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8787"
+  // }
+}

@@ -1,0 +1,49 @@
+version: '2'
+services:
+
+  consul:
+    extends:
+      file: consul/consul.yml
+      service: consul
+
+  kong-dashboard:
+    extends:
+      file: kong/kong_base.yml
+      service: kong-dashboard
+
+  kong-database:
+    extends:
+      file: kong/kong_base.yml
+      service: kong-database
+
+
+  node-app:
+    extends:
+      file: nodejs/helloWorld/helloworld.yml
+      service: node-app
+
+  kong:
+    extends:
+      file: kong/kong_base.yml
+      service: kong
+    links:
+      - consul
+      - kong-database:kong-database
+    dns_search:
+      - consul    
+
+
+  a-service:
+    extends:
+      file: springboot/spring.yml
+      service: a-service
+
+  b-service:
+    extends:
+      file: springboot/spring.yml
+      service: b-service
+
+  admin-dashboard:
+    extends:
+      file: springboot/spring.yml
+      service: admin-dashboard

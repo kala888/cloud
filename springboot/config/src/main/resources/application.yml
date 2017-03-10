@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+     active: native
+
+security:
+  user:
+    name: ${CONFIG_SERVICE_USER}
+    password: ${CONFIG_SERVICE_PASSWORD}
+
+server.port: 7100
+# management.port: 7101
+
+
+logging:
+  level:
+    ocom.ecwid: DEBUG

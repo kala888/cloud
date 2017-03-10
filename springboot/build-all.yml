@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  build-all:
+    image: kala888/gradle
+    volumes:
+      - ./:/project
+      - ~/.gradle/:/root/.gradle
+    command: sh -c "cd /project && gradle clean bootRe"
+    network_mode: "bridge"

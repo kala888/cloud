@@ -1,0 +1,11 @@
+version: '2'
+services:
+  kong-database:
+    scale: 1
+    start_on_create: true
+  kong-dashboard:
+    scale: 1
+    start_on_create: true
+  kong:
+    scale: 1
+    start_on_create: true

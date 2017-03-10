@@ -1,0 +1,19 @@
+server.port: 7300
+management.context-path: /mgmt
+
+spring:
+  application:
+    name: admin-dashboard
+  cloud:
+    consul:
+      discovery:
+        healthCheckPath: ${management.context-path}/health
+        prefer-ip-address: true
+        tags: management.context-path=${management.context-path}
+      host: consul
+      port: 8500
+      config:
+        enabled: true
+        watch:
+          enabled: true
+  

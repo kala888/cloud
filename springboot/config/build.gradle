@@ -1,0 +1,4 @@
+dependencies {
+    compile libs.springboot.security
+    compile libs.springcloud.config_server
+}

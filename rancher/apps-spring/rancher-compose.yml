@@ -1,0 +1,11 @@
+version: '2'
+services:
+  lookup:
+    scale: 1
+    start_on_create: true
+  calc:
+    scale: 1
+    start_on_create: true
+  config:
+    scale: 1
+    start_on_create: true

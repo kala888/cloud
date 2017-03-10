@@ -1,0 +1,113 @@
+ext {
+        rootname="demo"
+        libs = [
+                commons     : [
+
+                ],
+                springboot : [
+                  base : [
+                    "org.springframework.boot:spring-boot-starter:${springBootVersion}",
+                    "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+                    "org.springframework.boot:spring-boot-devtools"
+                  ],
+                  security : [
+                          "org.springframework.boot:spring-boot-starter-security"
+                  ],
+                  tomcat : [
+                          "org.springframework.boot:spring-boot-starter-tomcat"
+                  ],
+                  actuator : [
+                          "org.springframework.boot:spring-boot-starter-actuator"
+                  ],
+                  mongo : [
+                          "org.springframework.boot:spring-boot-starter-data-mongodb"
+                  ],
+                  mail : [
+                          "org.springframework.boot:spring-boot-starter-mail"
+                  ]
+                ],
+                springcloud :[
+                  consul:[
+                    "org.springframework.cloud:spring-cloud-starter-consul-all"
+                  ],
+                  consul_discovery:[
+                    "org.springframework.cloud:spring-cloud-starter-consul-discovery"
+                  ],
+                  eureka:[
+                    "org.springframework.cloud:spring-cloud-starter-eureka"
+                  ],
+                  eureka_server:[
+                    "org.springframework.cloud:spring-cloud-starter-eureka-server"
+                  ],
+                  ribbon:[
+                    "org.springframework.cloud:spring-cloud-starter-ribbon"
+                  ],
+                  feign:[
+                    "org.springframework.cloud:spring-cloud-starter-feign"
+                  ],
+                  zuul:[
+                    "org.springframework.cloud:spring-cloud-starter-zuul"
+                  ],
+                  config:[
+                    "org.springframework.cloud:spring-cloud-starter-config"
+                  ],
+                  config_server:[
+                    "org.springframework.cloud:spring-cloud-config-server"
+                  ],
+                  amqp:[
+                    "org.springframework.cloud:spring-cloud-starter-bus-amqp"
+                  ],
+                  hystrix:[
+                    "org.springframework.cloud:spring-cloud-starter-hystrix"
+                  ],
+                  oauth2:[
+                    "org.springframework.cloud:spring-cloud-starter-oauth2"
+                  ],
+                  turbine:[
+                    "org.springframework.cloud:spring-cloud-netflix-turbine"
+                  ],
+                  turbine_stream:[
+                    "org.springframework.cloud:spring-cloud-starter-turbine-stream"
+                  ],
+                  rabbit:[
+                    "org.springframework.cloud:spring-cloud-starter-stream-rabbit"
+                  ],
+                  hystrix_dashboard:[
+                    "org.springframework.cloud:spring-cloud-starter-hystrix-dashboard"
+                  ]
+                ],
+                bootAdmin: [
+                         "de.codecentric:spring-boot-admin-server:${bootAdminVersion}",
+                         "de.codecentric:spring-boot-admin-server-ui:${bootAdminVersion}",
+                         "de.codecentric:spring-boot-admin-server-ui-hystrix:${bootAdminVersion}",
+                         "de.codecentric:spring-boot-admin-server-ui-turbine:${bootAdminVersion}"
+                ],
+                springOauth2 : [
+                        "org.springframework.security.oauth:spring-security-oauth2:${springOauth2Version}"
+                ],
+                springSecurity : [
+                        "org.springframework.security:spring-security-web:${springSecurityVersion}",
+                        "org.springframework.security:spring-security-config:${springSecurityVersion}"
+                ],
+                springfox   : [
+                        "io.springfox:springfox-swagger2:${swagger2Version}",
+                        "io.springfox:springfox-swagger-ui:${swaggerUIVersion}"
+                ],
+                swagger2    : [
+                        "io.swagger:swagger-annotations:${swaggerAnnotationsVersion}"
+                ],
+                jolokia    : [
+                        "org.jolokia:jolokia-core:${jolokiaVersion}"
+                ],
+                guava    : [
+                        "com.google.guava:guava:${guavaVersion}"
+                ],
+                test        : [
+                        "junit:junit:${junitVersion}",
+                        "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
+                        "org.springframework.security:spring-security-test:${springSecurityVersion}",
+                        "de.flapdoodle.embed:de.flapdoodle.embed.mongo",
+                        "com.jayway.jsonpath:json-path"
+                ]
+        ]
+}

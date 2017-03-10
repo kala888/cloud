@@ -1,0 +1,7 @@
+#applications: a-service
+#turbine:
+#  aggregator:
+#    clusterConfig: ${applications}
+#  appConfig: ${applications}
+
+# calc.ribbon.listOfServers: localhost:4000

@@ -1,0 +1,32 @@
+version: '2'
+services:
+
+  a-service:
+    build: a-service
+    ports:
+      - 5100
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  b-service:
+    build: b-service
+    ports:
+      - 5200
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  admin-dashboard:
+    build: admin-dashboard
+    ports:
+      - 7300:7300
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

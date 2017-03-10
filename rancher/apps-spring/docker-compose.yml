@@ -1,0 +1,36 @@
+version: '2'
+services:
+  lookup:
+    image: kala888/demo-lookup
+    environment:
+      CONFIG_SERVICE_PASSWORD: '111222'
+      CONFIG_SERVICE_USER: cfg
+    stdin_open: true
+    tty: true
+    links:
+    - config:config
+    ports:
+    - 4200:4200/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'
+  calc:
+    image: kala888/demo-calc
+    stdin_open: true
+    external_links:
+    - apps-node/plus:plus
+    tty: true
+    ports:
+    - 4100:4100/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'
+  config:
+    image: kala888/demo-config
+    environment:
+      CONFIG_SERVICE_PASSWORD: '111222'
+      CONFIG_SERVICE_USER: cfg
+    stdin_open: true
+    tty: true
+    ports:
+    - 7100:7100/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'

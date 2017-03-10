@@ -1,0 +1,37 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:3
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: false
+  graylog2:
+    image: graylog2/server
+    environment:
+      GRAYLOG_PASSWORD_SECRET: kalaadmin123456
+      GRAYLOG_ROOT_PASSWORD_SHA2: 240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9
+      GRAYLOG_REST_TRANSPORT_URI: http://127.0.0.1:12900
+    stdin_open: true
+    tty: true
+    links:
+    - mongo:mongo
+    - elasticsearch:elasticsearch
+    ports:
+    - 5555:5555/tcp
+    - 5556:5556/tcp
+    - 9000:9000/tcp
+    - 12900:12900/tcp
+    - 12201:12201/udp
+    - 1514:1514/udp
+    labels:
+      io.rancher.container.pull_image: false
+  elasticsearch:
+    image: elasticsearch:2
+    stdin_open: true
+    volumes:
+    - /home/kalaliu/temp/graylog/data/journal:/usr/share/graylog/data/journa
+    - /home/kalaliu/docker/kala888/graylog/config:/usr/share/graylog/data/config
+    tty: true
+    labels:
+      io.rancher.container.pull_image: false

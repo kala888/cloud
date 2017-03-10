@@ -1,0 +1,40 @@
+version: '2'
+services:
+
+  kong-dashboard:
+    image: pgbi/kong-dashboard
+    ports:
+      - 8100:8080
+    restart: always
+    links:
+      - kong:kong
+
+  # Kong Database
+  kong-database:
+    restart: always
+    image: postgres:9.4
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=kong
+      - POSTGRES_DB=kong
+
+  # Kong
+  kong:
+    image: kong
+    restart: always
+    links:
+      - kong-database:kong-database
+    command: /bin/sh -c  "kong start --vv"
+    ports:
+      - 80:8000
+      - 443:8443
+      - 8001:8001
+    expose:
+      - 7946
+      - 7946/udp
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+    dns:
+      - 192.169.0.1

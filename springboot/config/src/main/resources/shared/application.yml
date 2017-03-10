@@ -1,0 +1,18 @@
+management.context-path: /mgmt
+
+from: config
+
+logging:
+  level:
+    org.springframework.security: INFO
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+#  rabbitmq:
+#    host: rabbitmq

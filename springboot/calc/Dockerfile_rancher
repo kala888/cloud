@@ -1,0 +1,11 @@
+FROM kala888/jdk
+
+WORKDIR /
+ADD entrypoint.sh entrypoint.sh
+RUN chomd +x entrypoint.sh
+
+ADD build/libs/demo-a-service.jar /app.jar
+RUN chmod +x /app.jar
+
+EXPOSE 5100
+ENTRYPOINT ["./entrypoint.sh"]
