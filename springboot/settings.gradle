@@ -4,6 +4,7 @@ include 'admin-dashboard'
 include 'calc'
 include 'lookup'
 include 'config'
+include 'auth'
 include 'swagger'
 
 rootProject.children.each{
