@@ -24,10 +24,10 @@ AS_KEY="$RANCHER_ACCOUNT_AKEY:$RANCHER_ACCOUNT_SKEY"
 ADMIN_USER="admin"
 ADMIN_PASS="admin123"
 
-PROJECT_ID=$(curl -s -u $AS_KEY "$RANCHER_URL/v2-beta/projects" | jq -r ".data[0].id")
+PROJECT_ID=$(curl -su $AS_KEY "$RANCHER_URL/v2-beta/projects" | jq -r ".data[0].id")
 
 #2.Initial Env Key, and export to ENV
-ENV_KEY_CONTENT=$(curl -s -X POST -H 'Content-Type: application/json' -d '{ "description": "This is a initial env key", "name": "InitialEnv" }' \
+ENV_KEY_CONTENT=$(curl -sX POST -H 'Content-Type: application/json' -d '{ "description": "This is a initial env key", "name": "InitialEnv" }' \
  "${RANCHER_URL}/v2-beta/projects/${PROJECT_ID}/apiKeys")
 export RANCHER_ACCESS_KEY=$(echo $ENV_KEY_CONTENT | jq -r ".publicValue")
 export RANCHER_SECRET_KEY=$(echo $ENV_KEY_CONTENT | jq -r ".secretValue")
@@ -47,13 +47,13 @@ curl -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' \
 "http://localhost:18080/v2-beta/localauthconfig"
 
 #5.Intial the registrationTokens
-curl -s -X POST -u $AS_KEY -H 'Content-Type: application/json' -d '{ "description": "Initial", "name": "firstToken"}' \
+curl -su $AS_KEY  -X POST -H 'Content-Type: application/json' -d '{ "description": "Initial", "name": "firstToken"}' \
 "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens"
 
 #6.Start Docker agent
-TOKEN=`curl -s -u $AS_KEY "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens" | jq -r '.data[0].token'`
-DOCKER_IMAGE=`curl -s -u $AS_KEY "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens" | jq -r '.data[0].image'`
-DOCKER_AGENT_CMD=`curl -s -u $AS_KEY "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens" | jq -r '.data[0].command'`
+TOKEN=`curl -su $AS_KEY "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens" | jq -r '.data[0].token'`
+DOCKER_IMAGE=`curl -su $AS_KEY "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens" | jq -r '.data[0].image'`
+DOCKER_AGENT_CMD=`curl -su $AS_KEY "$RANCHER_URL/v2-beta/projects/$PROJECT_ID/registrationtokens" | jq -r '.data[0].command'`
 echo "Start a rancher agent, $DOCKER_AGENT_CMD"
 docker run  -d --privileged -v /var/run/docker.sock:/var/run/docker.sock \
  -v /var/lib/rancher:/var/lib/rancher $DOCKER_IMAGE \

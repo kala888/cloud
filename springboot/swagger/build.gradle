@@ -42,7 +42,7 @@ dependencies {
 
 generateSwaggerCode {
   language = 'spring'
-  inputFile = file('src/main/resources/swagger_dwtc.yml')
+  inputFile = file('src/main/resources/swagger_api.yml')
   outputDir = file("${gencode}")
   configFile = file('src/main/resources/config.json')
   components = ['models', 'apis']

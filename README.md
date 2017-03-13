@@ -5,63 +5,23 @@
 2. cd cloudservice-demo/rancher
 3. 
 
-curl http://localhost/api/v1/direct/plus?a=1&b=3
-curl http://localhost/api/v1/plus?a=1&b=3
-curl http://localhost/api/v1/multiply?a=2&b=3
-curl http://localhost/api/v1/iplookup
-
-
-
-## Services
-consul ui : http://localhost:8500
-kong-dashboard : http://localhost:7400
-spring-admin dashboard : http://localhost:7300
-
-
-## a-service
-* provide add service
-* curl http://${a-service-ip}:5100/add?a=13&b=2
-* swagger2：http://${a-service-ip}:5100/swagger-ui.html
-
-## b-service
-* provide three service:
-** iplookup(lookup your ip)
-* curl http://${b-service-ip}:5200/iplookup
-** add service which will call app1
-* curl http://${b-service-ip}:5200/remote/add?a=1&b=4
-** add service which will call app1 without parameter
-* curl http://${b-service-ip}:5200/plus1and2
-* swagger2: http://${b-service-ip}:5200/swagger-ui.html
-
-## nodejs-service
-* curl http://${nodejs-ip}:1337/
-
-
-
-## api-gateway
-* 1. registry api to kong
-
-* route application
-* * curl "http://localhost/v1/calc?a=1&b=111"
-* * curl "http://localhost/v1/plus1and2"
-* * curl "http://localhost/v1/b/iplookup"
-* * curl "http://localhost/v1/b/remote/add?a=1&b=222"
-
-## swagger2
-* API documentation
-
-
-
-
-
-
-
-
-
-
-curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
--X POST \
--H 'Accept: application/json' \
--H 'Content-Type: application/json' \
--d '{"accountId":"1a1", "description":"Rancher Admin", "name":"kala", "publicValue":"pub123"}' \
-'http://localhost:18080/v2-beta/apikeys'
+test case 1 : curl -s 'http://localhost/api/v1/direct/plus?a=1&b=3'
+test case 2 : curl -s 'http://localhost/api/v1/plus?a=1&b=3' | jq .
+test case 3 : curl -s 'http://localhost/api/v1/multiply?a=2&b=3' | jq .
+test case 4 : curl -s 'http://localhost/api/v1/iplookup' | jq .
+test case 5 : oauth2
+    # get app client token
+    APP_TOKEN=$(curl -su "app-client:111222" -d '{"grant_type":"client_credentials","client_id":"client-app"}' 'http://localhost:7200/oauth/token?grant_type=client_credentials' | jq -r ".access_token")
+    echo $APP_TOKEN
+    # create a test account  kala888/111222
+    curl -X POST -H "Authorization:Bearer $APP_TOKEN" -H "Content-Type:application/json" \
+    -d '{"scope":"server","username":"kala888","password":"111222"}' \
+    'http://localhost:7200/users'
+    # get user access token
+    USER_TOKEN=$(curl -su "browser:" \
+    -d grant_type=password -d scope=ui -d username=kala888 -d password=111222 \
+    "http://localhost:7200/oauth/token" |jq -r ".access_token")
+    echo $USER_TOKEN
+    # retrive user info
+    curl -H "Authorization: Bearer $USER_TOKEN" 'http://localhost:7200/users/me' | jq .
+test case 6 : google oauth2 with kong

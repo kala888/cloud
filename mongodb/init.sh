@@ -8,7 +8,6 @@ if test -z "$MONGODB_USER"; then
     echo "MONGODB_USER not defined"
     exit 1
 fi
-
 if test -z "$MONGODB_DATABASE"; then
     echo "MONGODB_DATABASE not defined"
     exit 1
