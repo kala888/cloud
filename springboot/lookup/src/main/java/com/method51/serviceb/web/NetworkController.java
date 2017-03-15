@@ -1,37 +1,52 @@
 package com.method51.serviceb.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.method51.swagger.api.IplookupApi;
+import com.method51.swagger.model.IPAddress;
+
 @RestController
-public class NetworkController {
+public class NetworkController implements IplookupApi {
 
     private final static String UNKNOWN = "unknown";
+    
+    @Autowired(required=true)
+    private HttpServletRequest request;
 
 
+//    @Context
+//     private HttpServletRequest request;
+    // /**
+    // *
+    // * Lookup IP Address
+    // *
+    // * @param request
+    // * @return
+    // */
+    // @CrossOrigin(maxAge = 3600)
+    // @RequestMapping(value = "/iplookup", method = RequestMethod.GET)
+    // public Map<String, String> ipLookup(HttpServletRequest request) {
+    // Map<String, String> map = new HashMap<String, String>();
+    // String ip = calculateIPAddress(request);
+    // map.put("ip", ip);
+    // return map;
+    // }
+    //
 
     /**
-     *
-     * Lookup IP Address
-     *
-     * @param request
-     * @return
+     * @see com.method51.swagger.api.IplookupApi#iplookupGet()
      */
-    @CrossOrigin(maxAge = 3600)
-    @RequestMapping(value = "/iplookup", method = RequestMethod.GET)
-    public Map<String, String> ipLookup(HttpServletRequest request) {
-        Map<String, String> map = new HashMap<String, String>();
+    @Override
+    public ResponseEntity<IPAddress> iplookup() {
         String ip = calculateIPAddress(request);
-        map.put("ip", ip);
-        return map;
+        IPAddress result = new IPAddress();
+        result.setIp(ip);
+        return ResponseEntity.ok(result);
     }
 
 

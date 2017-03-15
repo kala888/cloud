@@ -1,84 +1,102 @@
 swagger: '2.0'
 info:
-  title: Test API
-  description: Test restful api
-  version: 1.0.0
-host: localhost:8090
+  title: Uber API
+  description: Sample Backen Application
+  version: "1.0.0"
+# the domain of the service
+host: api.uber.com
+# array of all schemes that your API supports
 schemes:
-- https
-- http
+  - http
+# will be prefixed to all paths
 basePath: /
 produces:
-- application/json
+  - application/json
+
 paths:
-  /item/price:
-    post:
+  /calc/plus:
+    get:
+      summary: Calculator for plus
+      description: |
+        This REST call will show you the calc result of a+b
+      operationId: "plus"
       parameters:
-      - name: requestJson
-        in: body
-        description: The request item JSON you want to post
-        schema:
-          $ref: '#/definitions/QueryPriceRequest'
-        required: true
+        - name: a
+          in: query
+          description: The first number
+          required: true
+          type: number
+          format: integer
+        - name: b
+          in: query
+          description: The second number
+          required: true
+          type: number
+          format: integer          
       responses:
         200:
           description: success response
           schema:
-            $ref: '#/definitions/QueryPriceResponse'
+            $ref: '#/definitions/CalcResult'
+            
+  /calc/multiply:
+    get:
+      summary: Calculator for multiply
+      description: |
+        This REST call will show you the multiply result of a*b
+      operationId: "multiply"
+      parameters:
+        - name: a
+          in: query
+          description: The first number
+          required: true
+          type: number
+          format: integer
+        - name: b
+          in: query
+          description: The second number
+          required: true
+          type: number
+          format: integer          
+      responses:
+        200:
+          description: success response
+          schema:
+            $ref: '#/definitions/CalcResult'
+            
+            
+  /from:
+    get:
+      summary: Show the value of from.
+      description: |
+        Return the configure value of from to show you where does this value come from.
+      operationId: "getFromConfig"
+      responses:
+        200:
+          description: success response
+          schema:
+            type: string
+
+  /iplookup:
+    get:
+      summary: lookup your IP Address
+      operationId: "iplookup"
+      description: |
+        calculate your IP address
+      responses:
+        200:
+          description: success response
+          schema:
+            $ref: '#/definitions/IPAddress'
+            
 definitions:
-  QueryItem:
+  CalcResult:
     type: object
     properties:
-      productId:
+      result:
         type: string
-      skuId:
-        type: string
-      quantity:
-        type: integer
-  PriceItem:
-    type: object
-    description: Price info
-    properties:
-      productId:
-        type: string
-        description: The product Id of product
-      skuId:
-        type: string
-        description: The sku Id
-      price:
-        type: string
-        format: double
-        description: item price
-      quantity:
-        type: integer
-        description: item quantity
-      totalPrice:
-        type: string
-        format: double
-        description: item total price
-      priceSchema:
-        type: string
-        description: earlybird price, standard price or onsite price
-      message:
-        type: string
-        description: The discount message
-  QueryPriceResponse:
+  IPAddress:
     type: object
     properties:
-      itemPrices:
-        type: array
-        items:
-          $ref: '#/definitions/PriceItem'
-  QueryPriceRequest:
-    type: object
-    properties:
-      showId:
-        type: string
-      userId:
-        type: string
-      locale:
-        type: string
-      items:
-        type: array
-        items:
-          $ref: '#/definitions/QueryItem'
+      ip:
+        type: string        

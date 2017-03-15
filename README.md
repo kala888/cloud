@@ -9,7 +9,7 @@ test case 1 : curl -s 'http://localhost/api/v1/direct/plus?a=1&b=3'
 test case 2 : curl -s 'http://localhost/api/v1/plus?a=1&b=3' | jq .
 test case 3 : curl -s 'http://localhost/api/v1/multiply?a=2&b=3' | jq .
 test case 4 : curl -s 'http://localhost/api/v1/iplookup' | jq .
-test case 5 : oauth2
+test case 5 : oauth2 test for "/api/v1/me"
     # get app client token
     APP_TOKEN=$(curl -su "app-client:111222" -d '{"grant_type":"client_credentials","client_id":"client-app"}' 'http://localhost:7200/oauth/token?grant_type=client_credentials' | jq -r ".access_token")
     echo $APP_TOKEN
@@ -23,5 +23,5 @@ test case 5 : oauth2
     "http://localhost:7200/oauth/token" |jq -r ".access_token")
     echo $USER_TOKEN
     # retrive user info
-    curl -H "Authorization: Bearer $USER_TOKEN" 'http://localhost:7200/users/me' | jq .
+    curl -H "Authorization: Bearer $USER_TOKEN" 'http://localhost/api/v1/me' | jq .
 test case 6 : google oauth2 with kong

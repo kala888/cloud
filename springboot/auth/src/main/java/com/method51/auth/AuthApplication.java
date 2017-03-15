@@ -88,8 +88,14 @@ public class AuthApplication {
     @EnableAuthorizationServer
     protected static class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-        private TokenStore              tokenStore = new InMemoryTokenStore();
+        // private TokenStore              tokenStore = new InMemoryTokenStore();
 
+        @Value("${config.oauth2.privateKey}")
+        private String privateKey;
+
+        @Value("${config.oauth2.publicKey}")
+        private String publicKey;
+        
         @Autowired
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager   authenticationManager;
@@ -100,16 +106,28 @@ public class AuthApplication {
         @Autowired
         private Environment             env;
 
+        @Bean
+        public JwtTokenStore tokenStore() {
+            return new JwtTokenStore(tokenEnhancer());
+        }
 
-
-        /* curl a-service:111222@localhost:5000/oauth/token -d
-        * grant_type=client_credentials -d client_id=a-service
-        *
-        *
-        * curl -H "Authorization:Basic YnJvd3Nlcjo="
-        * localhost:5000/oauth/token -d grant_type=password -d scope=ui -d
-        * username=demo -d password=111222
-       */
+    /**
+    * test case 5 : oauth2
+    * # get app client token
+    * APP_TOKEN=$(curl -su "app-client:111222" -d '{"grant_type":"client_credentials","client_id":"client-app"}' 'http://localhost:7200/oauth/token?grant_type=client_credentials' | jq -r ".access_token")
+    * echo $APP_TOKEN
+    * # create a test account  kala888/111222
+    * curl -X POST -H "Authorization:Bearer $APP_TOKEN" -H "Content-Type:application/json" \
+    * -d '{"scope":"server","username":"kala888","password":"111222"}' \
+    * 'http://localhost:7200/users'
+    * # get user access token
+    * USER_TOKEN=$(curl -su "browser:" \
+    * -d grant_type=password -d scope=ui -d username=kala888 -d password=111222 \
+    * "http://localhost:7200/oauth/token" |jq -r ".access_token")
+    * echo $USER_TOKEN
+    * # retrive user info
+    * curl -H "Authorization: Bearer $USER_TOKEN" 'http://localhost:7200/users/me' | jq .
+    **/
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
@@ -143,7 +161,7 @@ public class AuthApplication {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             endpoints
-              .tokenStore(tokenStore)
+              .tokenStore(tokenStore())
               .authenticationManager(authenticationManager)
               .userDetailsService(userDetailsService);
         }
