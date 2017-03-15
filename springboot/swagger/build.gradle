@@ -22,10 +22,10 @@ def gencode="./gencode"
 sourceSets{  
     main{  
         java{  
-            srcDir "${gencode}/src/java" 
+            srcDir "${gencode}/src/main/java" 
         }  
         resources{  
-            srcDir "${gencode}/src/resources" 
+            srcDir "${gencode}/src/main/resources" 
         }  
     }  
 }  
@@ -48,6 +48,9 @@ generateSwaggerCode {
   components = ['models', 'apis']
 }
 compileJava.dependsOn(generateSwaggerCode)
+compileJava{
+    
+}
 clean<<{
     file("${gencode}/src/main/java").deleteDir();
 }

@@ -85,6 +85,9 @@ ext {
                 springOauth2 : [
                         "org.springframework.security.oauth:spring-security-oauth2:${springOauth2Version}"
                 ],
+                springJWT : [
+                        "org.springframework.security:spring-security-jwt:${springJWTVersion}"
+                ],
                 springSecurity : [
                         "org.springframework.security:spring-security-web:${springSecurityVersion}",
                         "org.springframework.security:spring-security-config:${springSecurityVersion}"

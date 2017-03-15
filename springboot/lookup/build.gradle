@@ -7,6 +7,6 @@ dependencies {
     compile libs.springcloud.ribbon
 
     compile libs.jolokia
-    // compile project(":${rootname}-swagger2")
+     compile project(":${rootname}-swagger")
     testCompile libs.test
 }

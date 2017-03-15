@@ -2,19 +2,25 @@ package com.method51.serviceb.web;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.method51.swagger.api.FromApi;
 
 @RefreshScope
 @RestController
-public class TestController {
+public class TestController implements FromApi {
     @Value("${from}")
     private String from;
 
 
 
-    @RequestMapping("/from")
-    public String from() {
-        return this.from;
+    /**
+     * @see com.method51.swagger.api.FromApi#fromGet()
+     */
+    @Override
+    public ResponseEntity<String> getFromConfig() {
+        return ResponseEntity.ok(this.from);
     }
+
 }
