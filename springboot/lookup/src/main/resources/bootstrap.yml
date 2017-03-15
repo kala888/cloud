@@ -1,12 +1,11 @@
-# server.port: 4200
-# management.context-path: /mgmt
+management.context-path: /mgmt
 
 spring:
   application:
     name: lookup
   cloud:
     config:
-      uri: http://config:7100
+      uri: http://manage:7800
       fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: ${CONFIG_SERVICE_USER}
+      password: ${MANAGE_SERVICE_PASSWORD}
+      username: ${MANAGE_SERVICE_USER}

@@ -2,10 +2,8 @@ management.context-path: /mgmt
 
 from: config
 
-logging:
-  level:
-    org.springframework.security: INFO
-
+spring.boot.admin.url: http://manage:7100
+spring.boot.admin.client.name: "${spring.application.name}-${stack.service:default}"
 
 hystrix:
   command:
@@ -16,3 +14,7 @@ hystrix:
             timeoutInMilliseconds: 10000
 #  rabbitmq:
 #    host: rabbitmq
+
+logging:
+  level:
+    org.springframework.security: INFO

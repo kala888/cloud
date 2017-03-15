@@ -1,36 +1,70 @@
 version: '2'
 services:
-  lookup:
-    image: kala888/demo-lookup
+
+  mamage:
+    image: kala888/demo-mamage
     environment:
-      CONFIG_SERVICE_PASSWORD: '111222'
-      CONFIG_SERVICE_USER: cfg
-    stdin_open: true
-    tty: true
-    links:
-    - config:config
-    ports:
-    - 4200:4200/tcp
-    labels:
-      io.rancher.container.pull_image: 'false'
-  calc:
-    image: kala888/demo-calc
-    stdin_open: true
-    external_links:
-    - apps-node/plus:plus
-    tty: true
-    ports:
-    - 4100:4100/tcp
-    labels:
-      io.rancher.container.pull_image: 'false'
-  config:
-    image: kala888/demo-config
-    environment:
-      CONFIG_SERVICE_PASSWORD: '111222'
-      CONFIG_SERVICE_USER: cfg
+      MANAGE_SERVICE_PASSWORD: 111222
+      MANAGE_SERVICE_USER: admin
     stdin_open: true
     tty: true
     ports:
     - 7100:7100/tcp
     labels:
       io.rancher.container.pull_image: 'false'
+
+  calc:
+    image: kala888/demo-calc
+    environment:
+      MANAGE_SERVICE_PASSWORD: 111222
+      MANAGE_SERVICE_USER: admin    
+    stdin_open: true
+    external_links:
+    - apps-node/plus:plus
+    links:
+    - mamage:mamage
+    tty: true
+    ports:
+    - 4100:4100/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'
+
+  lookup:
+    image: kala888/demo-lookup
+    environment:
+      MANAGE_SERVICE_PASSWORD: 111222
+      MANAGE_SERVICE_USER: cfg
+    stdin_open: true
+    tty: true
+    links:
+    - mamage:mamage
+    ports:
+    - 4200:4200/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'
+
+  auth:
+    image: kala888/demo-auth
+    environment:
+      APP_CLIENT_PASSWORD: 111222
+      MANAGE_SERVICE_PASSWORD: 111222
+      MANAGE_SERVICE_PASSWORD: admin
+      MONGODB_USER: demo
+      MONGODB_PASSWORD: 111222
+      MONGODB_DATABASE: demodb
+    external_links:
+    - mongodb/mongo:mongo
+    links:
+    - mamage:mamage
+    stdin_open: true
+    tty: true
+    ports:
+    - 4300:4300/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'
+
+
+
+
+
+

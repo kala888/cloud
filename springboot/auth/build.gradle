@@ -5,15 +5,10 @@ dependencies {
 
     compile libs.springboot.base
     compile libs.springboot.mongo
-
-    compile libs.jolokia
-    
     compile libs.springcloud.config
-    // compile libs.springcloud.eureka
+
+    compile libs.bootAdminClient
+    compile libs.jolokia
     compile project(":${rootname}-swagger")
     testCompile libs.test
 }
-
- bootRun {
-      jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8787"
-  }

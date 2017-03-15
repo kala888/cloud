@@ -1,4 +1,4 @@
-# server.port: 4200
+# server.port: 4300
 # management.context-path: /mgmt
 
 spring:
@@ -6,10 +6,10 @@ spring:
     name: auth
   cloud:
     config:
-      uri: http://config:7100
+      uri: http://manage:7100
       fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: ${CONFIG_SERVICE_USER}
+      password: ${MANAGE_SERVICE_PASSWORD}
+      username: ${MANAGE_SERVICE_USER}
 #logging:
 #  level:
 #    org.springframework: DEBUG

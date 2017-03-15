@@ -1,9 +1,8 @@
 dependencies {
   compile libs.bootAdmin
   // compile libs.springcloud.config
-  compile libs.springcloud.consul
+//  compile libs.springcloud.consul
   // compile libs.springcloud.amqp
   // compile libs.jolokia
-  // compile project(":${rootname}-swagger2")
   testCompile libs.test
 }

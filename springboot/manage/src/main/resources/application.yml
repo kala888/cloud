@@ -1,0 +1,17 @@
+server.port: 7100
+# management.port: 7101
+
+# spring.boot.admin.url: http://manage:${server.port}
+# spring.boot.admin.client.name: "${spring.application.name}-${stack.service:default}"
+
+spring.cloud.config.server.native.search-locations: classpath:/shared
+spring.profiles.active: native
+
+security:
+  user:
+    name: ${MANAGE_SERVICE_USER}
+    password: ${MANAGE_SERVICE_PASSWORD}
+
+logging:
+  level:
+    ocom.ecwid: DEBUG
