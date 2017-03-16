@@ -1,0 +1,8 @@
+dependencies {
+    compile libs.springboot.security
+    compile libs.springboot.base
+    compile libs.springboot.mongo
+
+    compile project(":${rootname}-swagger")
+    testCompile libs.test
+}

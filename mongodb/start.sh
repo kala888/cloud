@@ -1,0 +1,6 @@
+source ../env_set.sh
+docker run -d -p 27017:27017 \
+-e MONGODB_USER=$MONGODB_USER \
+-e MONGODB_PASSWORD=$MONGODB_PASSWORD \
+-e MONGODB_DATABASE=$MONGODB_DATABASE \
+ kala888/demo-mongo

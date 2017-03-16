@@ -1,9 +1,12 @@
 
 #!/bin/bash
 export repo="kala888"
+source env_set.sh
 echo "remove all demo application docker images"
 #docker rm $(docker ps -a -q)
 docker rmi $(docker images | grep "$repo/demo-"|awk '{print $1}')
+
+cd mongodb && docker build -t "$repo/demo-mongo" . && cd ..
 
 cd nodejs/plus && docker build -t "$repo/demo-plus" . && cd ../..
 
