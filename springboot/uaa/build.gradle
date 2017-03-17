@@ -1,0 +1,16 @@
+dependencies {
+    compile libs.springboot.security
+    compile libs.springOauth2
+    compile libs.springJWT
+
+    // compile libs.springcloud.config
+    compile libs.bootAdminClient
+    compile libs.jolokia
+    compile project(":${rootname}-user")
+    compile project(":${rootname}-swagger")
+    testCompile libs.test
+}
+
+ bootRun {
+     jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8787"
+ }

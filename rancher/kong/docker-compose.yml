@@ -25,7 +25,8 @@ services:
     external_links:
     - apps-spring/lookup:lookup
     - apps-spring/calc:calc
-    - apps-spring/config:config
+    - apps-spring/auth:auth
+    - apps-spring/manage:manage
     - apps-node/plus:plus
     dns:
     - 192.169.0.1

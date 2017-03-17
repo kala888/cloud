@@ -1,0 +1,15 @@
+version: '2'
+services:
+
+  mongo:
+    image: kala888/demo-mongo
+    environment:
+      MONGODB_USER: demo
+      MONGODB_PASSWORD: 111222
+      MONGODB_DATABASE: demodb
+    stdin_open: true
+    tty: true
+    ports:
+    - 27017:27017/tcp
+    labels:
+      io.rancher.container.pull_image: 'false'

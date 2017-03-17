@@ -1,0 +1,7 @@
+server.port: 4300
+# management.context-path: /mgmt
+
+
+#logging:
+#  level:
+#    org.springframework: DEBUG

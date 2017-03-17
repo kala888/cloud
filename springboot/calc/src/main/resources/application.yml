@@ -1,4 +1,3 @@
-#applications: a-service
 #turbine:
 #  aggregator:
 #    clusterConfig: ${applications}

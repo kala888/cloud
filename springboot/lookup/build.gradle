@@ -6,7 +6,8 @@ dependencies {
     compile libs.springcloud.hystrix
     compile libs.springcloud.ribbon
 
+    compile libs.bootAdminClient
     compile libs.jolokia
-     compile project(":${rootname}-swagger")
+    compile project(":${rootname}-swagger")
     testCompile libs.test
 }

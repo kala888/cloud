@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: auth
+  cloud:
+    config:
+      uri: http://manage:7100
+      fail-fast: true
+      password: ${MANAGE_SERVICE_PASSWORD}
+      username: ${MANAGE_SERVICE_USER}

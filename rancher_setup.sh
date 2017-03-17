@@ -63,10 +63,12 @@ echo "sleep 60s"
 sleep 60s
 
 cd graylog && rancher-compose up -d && cd ..
+cd mongodb && rancher-compose up -d && cd ..
 cd apps-node && rancher-compose up -d && cd ..
 cd apps-spring && rancher-compose up -d && cd ..
 cd graylog && rancher-compose up -d && cd ..
 cd kong && rancher-compose up -d && cd ..
+
 
 
 

@@ -1,0 +1,5 @@
+dependencies {
+    compile libs.springboot.security
+    compile libs.springcloud.config_server
+    compile project(":${rootname}-admin-dashboard")
+}
