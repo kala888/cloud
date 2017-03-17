@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Uber API
-  description: Sample Backen Application
+  description: Sample Backend Application
   version: "1.0.0"
 # the domain of the service
 host: api.uber.com

@@ -7,9 +7,22 @@
 # echo "sleep 90s wait all service start"
 # sleep 90s
 
-curl 'http://localhost:8001/apis' --data-binary '{"name":"plus","request_path":"/api/v1/direct/plus","upstream_url":"http://plus:4000/plus","strip_request_path":true}' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive'
-curl 'http://localhost:8001/apis' --data-binary '{"name":"calc_plus","request_path":"/api/v1/plus","upstream_url":"http://calc:4100/calc/plus","strip_request_path":true}' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' 
-curl 'http://localhost:8001/apis' --data-binary '{"name":"calc_multiply","request_path":"/api/v1/multiply","upstream_url":"http://calc:4100/calc/multiply","strip_request_path":true}' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' 
-curl 'http://localhost:8001/apis' --data-binary '{"name":"iplookup","request_path":"/api/v1/iplookup","upstream_url":"http://lookup:4200/iplookup","strip_request_path":true}' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' 
-curl 'http://localhost:8001/apis' --data-binary '{"name":"from","request_path":"/api/v1/from","upstream_url":"http://lookup:4200/from","strip_request_path":true}' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' 
-curl 'http://localhost:8001/apis' --data-binary '{"name":"me","request_path":"/api/v1/me","upstream_url":"http://lookup:4300/me","strip_request_path":true}' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' 
+#1. regist plus service to KONG
+curl 'http://localhost:8001/apis' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' \
+    --data-binary '{"name":"plus","request_path":"/api/v1/direct/plus","upstream_url":"http://plus:4000/plus","strip_request_path":true}' 
+
+#2. regist calc service to KONG
+curl 'http://localhost:8001/apis' --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' \
+    --data-binary '{"name":"calc_plus","request_path":"/api/v1/plus","upstream_url":"http://calc:4100/calc/plus","strip_request_path":true}'
+curl 'http://localhost:8001/apis'  --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' \ 
+    --data-binary '{"name":"calc_multiply","request_path":"/api/v1/multiply","upstream_url":"http://calc:4100/calc/multiply","strip_request_path":true}'
+
+#3. regist lookup service to KONG
+curl 'http://localhost:8001/apis'  --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' \
+    --data-binary '{"name":"iplookup","request_path":"/api/v1/iplookup","upstream_url":"http://lookup:4200/iplookup","strip_request_path":true}'
+curl 'http://localhost:8001/apis'  --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' \
+    --data-binary '{"name":"from","request_path":"/api/v1/from","upstream_url":"http://lookup:4200/from","strip_request_path":true}'
+
+#4. regist uaa service to KONG
+curl 'http://localhost:8001/apis'  --compressed  -X PUT -H 'Content-Type: application/json;charset=UTF-8' -H 'Connection: keep-alive' \
+    --data-binary '{"name":"me","request_path":"/api/v1/me","upstream_url":"http://lookup:4300/me","strip_request_path":true}'

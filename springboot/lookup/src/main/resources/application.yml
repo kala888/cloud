@@ -1,3 +1,4 @@
 from: simple
 
 #logging.level.org.springframework: DEBUG
+logging.level.org.springframework.security.oauth2: DEBUG

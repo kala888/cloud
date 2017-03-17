@@ -1,0 +1,4 @@
+dependencies {
+    compile libs.springOauth2
+    compile libs.springJWT
+}

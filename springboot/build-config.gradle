@@ -96,11 +96,16 @@ ext {
                         "org.springframework.security:spring-security-config:${springSecurityVersion}"
                 ],
                 springfox   : [
-                        "io.springfox:springfox-swagger2:${swagger2Version}",
-                        "io.springfox:springfox-swagger-ui:${swaggerUIVersion}"
+                        "io.springfox:springfox-swagger2:${swagger2Version}"
                 ],
                 swagger2    : [
                         "io.swagger:swagger-annotations:${swaggerAnnotationsVersion}"
+                ],
+                swagger2Codegen : [
+                        "io.swagger:swagger-codegen-cli:${swaggerCodegenVersion}"
+                ],
+                swagger2GenPlugin :[
+                        "gradle.plugin.org.hidetake:gradle-swagger-generator-plugin:${swaggerGenneratorPluginVersion}"
                 ],
                 jolokia    : [
                         "org.jolokia:jolokia-core:${jolokiaVersion}"

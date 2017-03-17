@@ -1,4 +1,4 @@
-package com.method51.serviceb.web;
+package com.method51.lookup.web;
 
 import javax.servlet.http.HttpServletRequest;
 

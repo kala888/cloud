@@ -6,3 +6,5 @@ spring:
       password: ${MONGODB_PASSWORD}
       database: ${MONGODB_DATABASE}
       port: 27017
+
+logging.level.org.springframework.security.oauth2: DEBUG

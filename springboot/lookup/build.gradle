@@ -6,6 +6,12 @@ dependencies {
     compile libs.springcloud.hystrix
     compile libs.springcloud.ribbon
 
+    //for jwt
+    compile libs.springboot.security
+    compile libs.springOauth2
+    compile libs.springJWT
+    compile project(":${rootname}-jwt-public")
+
     compile libs.bootAdminClient
     compile libs.jolokia
     compile project(":${rootname}-swagger")

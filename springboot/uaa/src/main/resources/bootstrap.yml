@@ -1,6 +1,6 @@
 spring:
   application:
-    name: auth
+    name: uaa
   cloud:
     config:
       uri: http://manage:7100

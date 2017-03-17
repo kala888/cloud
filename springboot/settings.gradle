@@ -1,12 +1,17 @@
 rootProject.name = 'demo'
-include 'admin-dashboard'
 
+//Simple modules
+include 'admin-dashboard'
+include 'jwt-public'
+include 'swagger'
+include 'user'
+
+//Runnable modules
 include 'calc'
 include 'lookup'
 include 'manage'
-include 'user'
 include 'uaa'
-include 'swagger'
+
 
 rootProject.children.each{
   it.name="${rootProject.name}-${it.name}"
